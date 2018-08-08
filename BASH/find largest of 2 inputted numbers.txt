@@ -1,0 +1,27 @@
+#!/bin/bash
+read num1
+read num2
+if (( num1 > num2 )); then
+    echo "X is greater than Y"
+elif (( num1 < num2 )); then
+    echo "X is less than Y"
+else
+    echo "X is equal to Y"
+fi
+
+#In bash, you should do your check in arithmetic context:
+#if (( a > b )); then
+ #   ...
+#fi
+
+#For POSIX shells that don't support (()), you can use -lt and -gt.
+#if [ "$a" -gt "$b" ]; then
+ #   ...
+#fi
+
+#-eq # equal
+#-ne # not equal
+#-lt # less than
+#-le # less than or equal
+#-gt # greater than
+#-ge # greater than or equal

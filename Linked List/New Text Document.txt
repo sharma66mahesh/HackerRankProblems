@@ -1,0 +1,538 @@
+/*
+  Print elements of a linked list on console 
+  head pointer input could be NULL as well for empty list
+  Node is defined as 
+  struct Node
+  {
+     int data;
+     struct Node *next;
+  }
+*/
+void Print(Node *head)
+{
+  // This is a "method-only" submission. 
+  // You only need to complete this method. 
+    while(head != NULL)
+    {
+        cout << head->data << endl;
+        head = head->next;
+    }
+}
+
+
+
+
+
+
+
+/*
+  Insert Node at the end of a linked list 
+  head pointer input could be NULL as well for empty list
+  Node is defined as 
+  struct Node
+  {
+     int data;
+     struct Node *next;
+  }
+*/
+Node* Insert(Node *head,int data)
+{
+  // Complete this method
+    Node* temp = head;
+    
+    if(temp == NULL){
+        temp = new Node;
+        temp->data = data;
+        temp->next = NULL;
+        return temp;
+    }
+    
+    while(temp->next != NULL)
+    {
+        temp = temp->next;
+    }
+    
+    Node* n = new Node;
+    n->data = data;
+    n->next = NULL;
+    temp->next = n;
+    return head;
+}
+
+
+
+
+
+
+
+/*
+  Insert Node at the begining of a linked list
+  Initially head pointer argument could be NULL for empty list
+  Node is defined as 
+  struct Node
+  {
+     int data;
+     struct Node *next;
+  }
+return back the pointer to the head of the linked list in the below method.
+*/
+Node* Insert(Node *head,int data)
+{
+  // Complete this method
+    Node* newNod = new Node;
+    newNod->data = data;
+    newNod->next = head;
+    head = newNod;
+    return head;
+}
+
+
+
+
+
+
+
+
+/*
+  Insert Node at a given position in a linked list 
+  head can be NULL 
+  First element in the linked list is at position 0
+  Node is defined as 
+  struct Node
+  {
+     int data;
+     struct Node *next;
+  }
+*/
+Node* InsertNth(Node *head, int data, int position)
+{
+  // Complete this method only
+  // Do not write main function. 
+    Node* temp = head;
+    Node* n = new Node;
+    n->data = data;
+    int i = 0;
+    if(head == NULL)
+    {
+        head = n;
+        head->next = NULL;
+        return head;
+    }
+    
+    if(position == 0)
+    {
+        n->next = head;
+        head = n;
+        return head;
+    }    
+    while(i++ < position-1)
+    {
+        temp = temp->next;
+    }
+    
+    n->next = temp->next;
+    temp->next = n;
+    return head;
+}
+
+
+
+
+
+
+
+
+
+
+/*
+  Delete Node at a given position in a linked list 
+  Node is defined as 
+  struct Node
+  {
+     int data;
+     struct Node *next;
+  }
+*/
+Node* Delete(Node *head, int position)
+{
+  // Complete this method
+    Node* temp = head;
+    if(head == NULL)
+        return head;
+    
+    if(position == 0)
+    {
+        head = head->next;
+        delete temp;
+        return head;
+    }
+    
+    while(--position)
+    {
+        temp = temp->next;
+    }   
+    
+    Node* del = temp->next;
+    temp->next = temp->next->next;
+    delete del;
+    return head;
+}
+
+
+
+
+
+
+
+
+
+
+/*
+  Print elements of a linked list in reverse order as standard output
+  head pointer could be NULL as well for empty list
+  Node is defined as 
+  struct Node
+  {
+     int data;
+     struct Node *next;
+  }
+*/
+void ReversePrint(Node *head)
+{
+  // This is a "method-only" submission. 
+  // You only need to complete this method.
+    if(head == NULL)
+        return;
+    if(head->next != NULL)
+        ReversePrint(head->next);
+    cout << head->data << endl;
+}
+
+
+
+
+
+
+
+
+
+
+/*
+  Reverse a linked list and return pointer to the head
+  The input list will have at least one element  
+  Node is defined as 
+  struct Node
+  {
+     int data;
+     struct Node *next;
+  }
+*/
+Node* Reverse(Node *head)
+{
+  // Complete this method
+    Node* head1 = head;
+    if(head1 == NULL)
+        return head1;
+    Node* n = new Node;
+    n->data = head1->data;
+    n->next = NULL;
+    while(head1->next != NULL)
+    {
+        head1 = head1->next;
+        Node* nn = new Node;
+        nn->data = head1->data;
+        nn->next = n;
+        n = nn;
+    }
+    return n;
+}
+
+
+
+
+
+
+
+
+
+
+
+/*
+  Compare two linked lists A and B
+  Return 1 if they are identical and 0 if they are not. 
+  Node is defined as 
+  struct Node
+  {
+     int data;
+     struct Node *next;
+  }
+*/
+int CompareLists(Node *headA, Node* headB)
+{
+  // This is a "method-only" submission. 
+  // You only need to complete this method 
+    if(!headA || !headB)
+        return 0;
+    
+    bool flag = 1;
+    
+    int i = 0;
+    Node* temp = headA;
+    while(temp)
+    {
+        temp = temp->next;
+        i++;
+    }
+    
+    temp = headB;
+    while(temp)
+    {
+        temp = temp->next;
+        i--;
+    }
+    
+    if(i != 0)
+        return 0;
+    
+    while(headA && headB)
+    {
+        if(headA->data != headB->data)
+        {
+            flag = 0;
+            break;
+        }
+        headA = headA->next;
+        headB = headB->next;
+    }
+    return flag;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+  Merge two sorted lists A and B as one linked list
+  Node is defined as 
+  struct Node
+  {
+     int data;
+     struct Node *next;
+  }
+*/
+Node* MergeLists(Node *headA, Node* headB)
+{
+  // This is a "method-only" submission. 
+  // You only need to complete this method 
+    if(!headA)
+        return headB;
+    if(!headB)
+        return headA;
+    Node* sorted;
+    
+    if(headA->data < headB->data)
+    {
+         sorted = headA;
+        headA = headA->next;
+    }
+    else{
+         sorted = headB;
+        headB = headB->next;
+    }
+    
+    Node* ret = sorted;
+    while(headA && headB)
+    {
+        if(headA->data < headB->data)
+        {
+            sorted->next = headA;
+            headA = headA->next;
+        }
+        else
+        {
+            sorted->next = headB;
+            headB = headB->next;
+        }
+        sorted = sorted->next;
+    }
+    while(headA != NULL){
+        sorted->next = headA;
+        sorted = sorted->next;
+        headA = headA->next;
+    }
+    
+    while(headB != NULL){
+        sorted->next = headB;
+        sorted = sorted->next;
+        headB = headB->next;
+    }
+    
+    sorted->next = NULL;
+    return ret;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+  Get Nth element from the end in a linked list of integers
+  Number of elements in the list will always be greater than N.
+  Node is defined as 
+  struct Node
+  {
+     int data;
+     struct Node *next;
+  }
+*/
+int GetNode(Node *head,int positionFromTail)
+{
+  // This is a "method-only" submission. 
+  // You only need to complete this method. 
+    Node* temp = head;
+    int i = 0;
+    while(temp->next){
+        i++;
+        temp = temp->next;
+    }
+    int pos = i - positionFromTail;
+    temp = head;
+    while(pos--)
+    {
+        temp = temp->next;
+    }
+    return temp->data;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+  Remove all duplicate elements from a sorted linked list
+  Node is defined as 
+  struct Node
+  {
+     int data;
+     struct Node *next;
+  }
+*/
+Node* RemoveDuplicates(Node *head)
+{
+  // This is a "method-only" submission. 
+  // You only need to complete this method. 
+    Node* temp = head;
+    while(temp->next){
+        if(temp->data == temp->next->data){
+            temp->next = temp->next->next;
+            continue;
+        }
+        temp = temp->next;
+    }
+    return head;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+Detect a cycle in a linked list. Note that the head pointer may be 'NULL' if the list is empty.
+
+A Node is defined as: 
+    struct Node {
+        int data;
+        struct Node* next;
+    }
+*/
+
+bool has_cycle(Node* head) {
+    // Complete this function
+    // Do not write the main method
+    if(!head)
+        return 0;
+    
+    Node* temp = head;
+    int i = 100;
+    
+    while(i--){
+        temp = temp->next;
+        if(!temp)
+            return 0;
+    }
+    return 1;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+   Find merge point of two linked lists
+   Node is defined as
+   struct Node
+   {
+       int data;
+       Node* next;
+   }
+*/
+int FindMergeNode(Node *headA, Node *headB)
+{
+    // Complete this function
+    // Do not write the main method.
+    Node* a = headA;
+    Node* b = headB;
+    while(a != b)
+    {
+        if(!a->next)
+            a = headB;
+        else
+            a = a->next;
+        
+        if(!b->next)
+            b = headA;
+        else
+            b = b->next;  
+    }
+    return a->data;
+}
